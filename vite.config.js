@@ -10,6 +10,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         "user-form": resolve(__dirname, "dist/user-form.js"),
+        "login-form": resolve(__dirname, "dist/login-form.js"),
         bootstrap: resolve(
           __dirname,
           "node_modules/bootstrap/dist/css/bootstrap.min.css"
