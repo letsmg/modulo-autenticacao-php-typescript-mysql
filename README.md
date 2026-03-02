@@ -1,8 +1,8 @@
 # Módulo de Autenticação PHP + TypeScript + MySQL
 
-![Badge em Desenvolvimento]()
-![Badge Licença](https://github.com/letsmg/modulo-autenticacao-php-typescript-mysql/blob/main/LICENSE)
-![Badge Tecnologias]()
+[![Badge em Desenvolvimento](https://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=ORANGE&style=for-the-badge)](https://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=ORANGE&style=for-the-badge)  
+[![Badge Licença](https://img.shields.io/static/v1?label=LICENÇA&message=MIT&color=green&style=for-the-badge)](https://github.com/letsmg/modulo-autenticacao-php-typescript-mysql/blob/main/LICENSE)  
+[![Badge Tecnologias](https://img.shields.io/static/v1?label=TECNOLOGIAS&message=PHP%20%7C%20MySQL%20%7C%20TypeScript%20%7C%20Vite&color=blue&style=for-the-badge)](https://img.shields.io/static/v1?label=TECNOLOGIAS&message=PHP%20%7C%20MySQL%20%7C%20TypeScript%20%7C%20Vite&color=blue&style=for-the-badge)
 
 ## Descrição
 
