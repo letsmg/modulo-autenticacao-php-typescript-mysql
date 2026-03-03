@@ -1,0 +1,33 @@
+/* Tema custom simples usando gradientes e cores atraentes */
+:root{
+  --brand-start: #4f46e5; /* indigo-600 */
+  --brand-end: #06b6d4; /* cyan-500 */
+  --card-bg: #ffffff;
+  --muted: #6b7280;
+}
+body{
+  background: linear-gradient(135deg,#f8fafc 0%, #eef2ff 40%, #ecfeff 100%);
+  min-height: 100vh;
+  color: #0f172a;
+}
+.navbar-primary{
+  background: linear-gradient(90deg,var(--brand-start),var(--brand-end));
+}
+.navbar-primary .navbar-brand, .navbar-primary .nav-link{ color: #fff !important; }
+.card{
+  background: var(--card-bg);
+  border: 0;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(15,23,42,0.08);
+}
+.btn-primary{
+  background-image: linear-gradient(90deg,var(--brand-start),var(--brand-end));
+  border: none;
+}
+.btn-primary:hover{ opacity: 0.95; }
+.form-control:focus{
+  box-shadow: 0 0 0 0.15rem rgba(79,70,229,0.12);
+  border-color: var(--brand-start);
+}
+.link-primary-custom{ color: var(--brand-start); }
+.small-muted{ color: var(--muted); }

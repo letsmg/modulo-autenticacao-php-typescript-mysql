@@ -5,7 +5,7 @@ var LoginForm = (() => {
     return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
   };
 
-  // dist/login-form.js
+  // dist/login-form.js (adaptado)
   var require_login_form = __commonJS({
     "dist/login-form.js"(exports) {
       Object.defineProperty(exports, "__esModule", { value: true });
@@ -30,7 +30,7 @@ var LoginForm = (() => {
         });
       }
       async function login(payload) {
-        const resposta = await fetch("login_usuario.php", {
+        const resposta = await fetch("usuarios/logica/login_usuario.php", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -62,7 +62,7 @@ var LoginForm = (() => {
             }
             output.innerHTML = `<div class="alert alert-success mb-0">${resp.mensagem}</div>`;
             if (resp.sucesso && resp.usuario) {
-              window.location.href = `editar_usuario.php?id=${resp.usuario.id}`;
+              window.location.href = `home.php`;
             }
           }).catch(() => {
             output.innerHTML = '<div class="alert alert-danger mb-0">Erro inesperado ao comunicar com o servidor.</div>';

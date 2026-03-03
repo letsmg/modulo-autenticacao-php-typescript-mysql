@@ -16,16 +16,16 @@ Repositório: https://github.com/letsmg/modulo-autenticacao-php-typescript-mysql
 ## Funcionalidades Concluídas
 
 - Cadastro de usuários (com validação de email único e hashing de senha seguro)
-- Login com autenticação de sessão
-- Verificação de níveis de acesso (ex: redirecionamento baseado em role/nível)
-- Estrutura de banco de dados básica (tabela `usuarios` com campos id, nome, email, senha_hash, nivel_acesso, etc.)
+- Login com autenticação de sessão (redireciona para edição de perfil)
+- Edição de usuários (interface e API, com verificação de permissões)
+- Ativação/desativação de contas via campo `ativo` (apenas administradores, não podem desativar a si próprios)
+- Verificação de níveis de acesso (somente admins podem alterar nivel de acesso de outros)
+- Estrutura de banco de dados básica (tabela `usuarios` com campos id, nome, email, senha_hash, nivel_acesso, ativo, etc.)
 - Interface simples e responsiva (HTML + CSS + JavaScript/TypeScript)
 
 ## Funcionalidades Pendentes (a implementar)
 
-- Edição de perfil/usuário (atualizar nome, email, senha, etc.)
 - Exclusão de usuários (com confirmação e restrição por nível de acesso)
-- Desativação/ativação de contas (campo `ativo` para bloquear acesso sem excluir)
 - Recuperação de senha (reset via email/token)
 - Proteções adicionais (CSRF tokens, rate limiting em login, 2FA opcional)
 

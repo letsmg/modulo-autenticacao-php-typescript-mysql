@@ -116,4 +116,3 @@ try {
         'mensagem' => 'Erro ao realizar login.',
     ]);
 }
-

@@ -6,6 +6,7 @@
     <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/custom.css" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
@@ -19,11 +20,7 @@
             <div class="card-body">
               <div class="d-flex align-items-center justify-content-between mb-2">
                 <h1 class="h4 mb-0">Entrar</h1>
-                <a
-                  class="link-secondary text-decoration-none"
-                  href="cadastro.php"
-                  >Criar conta</a
-                >
+                <a class="link-secondary text-decoration-none" href="usuarios/telas/cadastro.php">Criar conta</a>
               </div>
               <p class="text-muted mb-4">
                 Informe seu e-mail e senha para acessar.
@@ -39,6 +36,7 @@
                     class="form-control"
                     autocomplete="email"
                     required
+                    value="a@a.com"
                   />
                 </div>
 
@@ -52,6 +50,7 @@
                       class="form-control"
                       autocomplete="current-password"
                       required
+                      value="123456"
                     />
                     <button
                       type="button"
@@ -79,12 +78,12 @@
           </div>
 
           <p class="text-center mt-3 mb-0 text-muted small">
-            Não tem cadastro? <a href="cadastro.php">Crie sua conta</a>
+            Não tem cadastro? <a href="usuarios/telas/cadastro.php">Crie sua conta</a>
           </p>
         </div>
       </div>
     </div>
 
-    <script src="js/login-form.js"></script>
+    <script type="module" src="usuarios/telas/js/login-form.js"></script>
   </body>
   </html>

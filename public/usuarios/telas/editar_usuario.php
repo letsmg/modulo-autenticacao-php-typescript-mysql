@@ -1,11 +1,25 @@
-<?php ?>
+<?php
+session_start();
+if (!isset($_SESSION['usuario_id'])) {
+    // Usuário não autenticado redireciona para login
+    header('Location: ../../index.php');
+    exit;
+}
+// se não houver id na query string, envia para o próprio
+if (!isset($_GET['id'])) {
+    $me = $_SESSION['usuario_id'];
+    header("Location: editar_usuario.php?id={$me}");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <title>Criar conta</title>
+    <title>Editar usuário</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="../../css/bootstrap.css" />
+    <link rel="stylesheet" href="../../css/custom.css" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
@@ -17,14 +31,11 @@
         <div class="col-12 col-md-8 col-lg-6">
           <div class="card shadow-sm">
             <div class="card-body">
-              <div class="d-flex align-items-center justify-content-between mb-2">
-                <h1 class="h4 mb-0">Criar conta</h1>
-                <a class="link-secondary text-decoration-none" href="index.php"
-                  >Já tenho conta</a
-                >
-              </div>
+              <h1 class="h4 mb-3">Editar usuário</h1>
               <p class="text-muted mb-4">
-                Preencha seus dados para criar um usuário no sistema.
+                Faça as alterações desejadas. Administradores podem alterar o
+                nível de acesso e desativar outros usuários, mas não podem
+                desativar ou mudar o próprio nível.
               </p>
 
               <form id="form-usuario" autocomplete="off" class="vstack gap-3">
@@ -52,7 +63,7 @@
 
                 <div>
                   <label for="senha" class="form-label"
-                    >Senha (mínimo 6 caracteres)</label
+                    >Senha (deixe em branco para manter a atual)</label
                   >
                   <div class="input-group">
                     <input
@@ -61,7 +72,6 @@
                       name="senha"
                       class="form-control"
                       minlength="6"
-                      required
                       autocomplete="new-password"
                     />
                     <button
@@ -86,7 +96,6 @@
                       name="repetirSenha"
                       class="form-control"
                       minlength="6"
-                      required
                       autocomplete="new-password"
                     />
                     <button
@@ -113,13 +122,26 @@
                     <option value="adm">Administrador</option>
                   </select>
                   <div class="form-text">
-                    Em produção, esse campo normalmente não ficaria exposto.
+                    O campo só ficará habilitado se você tiver permissão.
                   </div>
+                </div>
+
+                <div id="field-ativo" class="form-check d-none">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="ativo"
+                    name="ativo"
+                    value="1"
+                  />
+                  <label class="form-check-label" for="ativo">
+                    Usuário ativo
+                  </label>
                 </div>
 
                 <div>
                   <button type="submit" class="btn btn-success w-100">
-                    Cadastrar
+                    Salvar
                   </button>
                 </div>
               </form>
@@ -131,7 +153,7 @@
             </div>
           </div>
           <p class="text-center mt-3 mb-0 text-muted small">
-            Voltar para o <a href="index.php">login</a>
+            Voltar para o <a href="../../index.php">início</a>
           </p>
         </div>
       </div>
@@ -140,4 +162,3 @@
     <script type="module" src="js/user-form.js"></script>
   </body>
   </html>
-

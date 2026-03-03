@@ -5,7 +5,8 @@
     <meta charset="UTF-8" />
     <title>Criar conta</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="../../css/bootstrap.css" />
+    <link rel="stylesheet" href="../../css/custom.css" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
@@ -19,7 +20,7 @@
             <div class="card-body">
               <div class="d-flex align-items-center justify-content-between mb-2">
                 <h1 class="h4 mb-0">Criar conta</h1>
-                <a class="link-secondary text-decoration-none" href="index.php"
+                <a class="link-secondary text-decoration-none" href="../../index.php"
                   >Já tenho conta</a
                 >
               </div>
@@ -131,7 +132,7 @@
             </div>
           </div>
           <p class="text-center mt-3 mb-0 text-muted small">
-            Voltar para o <a href="index.php">login</a>
+            Voltar para o <a href="../../index.php">login</a>
           </p>
         </div>
       </div>
@@ -140,4 +141,3 @@
     <script type="module" src="js/user-form.js"></script>
   </body>
   </html>
-
