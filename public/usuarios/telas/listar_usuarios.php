@@ -1,9 +1,5 @@
 <?php
-session_start();
-if (!isset($_SESSION['usuario_id'])) {
-    header('Location: ../../index.php');
-    exit;
-}
+// cuidados com sessão realizados pelo cabeçalho logado
 
 $host = 'localhost';
 $db   = 'ts';
@@ -28,27 +24,19 @@ try {
 } catch (PDOException $e) {
     $users = [];
 }
-?>
-<!DOCTYPE html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Listar usuários</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="../../css/bootstrap.css" />
-    <link rel="stylesheet" href="../../css/custom.css" />
-  </head>
-  <body class="bg-body-tertiary">
-    <div class="container py-4">
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1 class="h5 mb-0">Usuários</h1>
-        <div>
-          <a href="../../home.php" class="btn btn-secondary btn-sm">Voltar</a>
-        </div>
-      </div>
 
+$titulo_pagina = 'Listar usuários';
+require_once '../../cabecalhos/cabecalho_logado.php';
+?>
+    <?php require_once '../../menus/menu-home.php'; ?>
+
+    <div class="container py-4">
       <div class="card">
-        <div class="card-body p-0">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h5 mb-0">Usuários</h2>
+            <a href="/ts/home.php" class="btn btn-secondary btn-sm">Voltar</a>
+          </div>
           <table class="table table-striped mb-0">
             <thead>
               <tr>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 02/03/2026 às 19:36
+-- Tempo de geração: 03/03/2026 às 13:41
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -44,8 +44,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `nivel_acesso`, `criado_em`, `atualizado_em`, `ultimo_login`, `ativo`) VALUES
-(17, 'asdfa', 'adminW@asdf.com', '$2y$10$9ODUakIzKBtDiB5d2JWMR.pN2YrXQP1VU2BxKjXbUG.txhHCp18KW', 10, '2026-03-02 12:14:19', '2026-03-02 12:14:19', NULL, 1),
-(19, 'asdfa', 'adminW@asdf.comasdf', '$2y$10$e2KzyV0VlhA1TTrOSYXn1Oa/dKyygR8KyafJpWO1tBAqR0ptnXbuu', 1, '2026-03-02 12:14:28', '2026-03-02 12:14:28', NULL, 1);
+(1, 'admin', 'a@a.com', '$2y$10$d/qgKi7MYJDmWxYirW/FLuy6igDLyf4kkKfPKpeUzvlts54SLIrZi', 1, '2026-03-03 09:06:21', '2026-03-03 09:41:00', '2026-03-03 09:23:08', 1);
 
 --
 -- Índices para tabelas despejadas
@@ -66,7 +65,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

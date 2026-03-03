@@ -1,4 +1,12 @@
-<?php ?>
+<?php
+session_start();
+
+// Se usuário já está logado, redireciona para home
+if (isset($_SESSION['usuario_id'])) {
+    header('Location: home.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>

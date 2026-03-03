@@ -1,31 +1,17 @@
 <?php
-session_start();
-if (!isset($_SESSION['usuario_id'])) {
-    // Usuário não autenticado redireciona para login
-    header('Location: ../../index.php');
-    exit;
-}
-// se não houver id na query string, envia para o próprio
 if (!isset($_GET['id'])) {
+    // garante edição do próprio usuário se nenhum id for fornecido
     $me = $_SESSION['usuario_id'];
     header("Location: editar_usuario.php?id={$me}");
     exit;
 }
+
+// título específico; o cabeçalho logado cuidará de sessão e CSS
+$titulo_pagina = 'Editar usuário';
+require_once '../../cabecalhos/cabecalho_logado.php';
 ?>
-<!DOCTYPE html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Editar usuário</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="../../css/bootstrap.css" />
-    <link rel="stylesheet" href="../../css/custom.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
-  </head>
-  <body class="bg-body-tertiary">
+    <?php require_once '../../menus/menu-home.php'; ?>
+
     <div class="container py-5">
       <div class="row justify-content-center">
         <div class="col-12 col-md-8 col-lg-6">
@@ -140,9 +126,10 @@ if (!isset($_GET['id'])) {
                 </div>
 
                 <div>
-                  <button type="submit" class="btn btn-success w-100">
-                    Salvar
-                  </button>
+                  <div class="d-grid gap-2 d-sm-flex">
+                    <button type="submit" class="btn btn-success flex-fill">Salvar</button>
+                    <a href="/ts/home.php" class="btn btn-secondary">Voltar</a>
+                  </div>
                 </div>
               </form>
 
@@ -152,9 +139,7 @@ if (!isset($_GET['id'])) {
               ></section>
             </div>
           </div>
-          <p class="text-center mt-3 mb-0 text-muted small">
-            Voltar para o <a href="../../index.php">início</a>
-          </p>
+
         </div>
       </div>
     </div>

@@ -1,28 +1,17 @@
-<?php ?>
-<!DOCTYPE html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Criar conta</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="../../css/bootstrap.css" />
-    <link rel="stylesheet" href="../../css/custom.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
-  </head>
-  <body class="bg-body-tertiary">
+<?php
+// título específico; o cabeçalho logado tratará sessão e CSS
+$titulo_pagina = 'Criar conta';
+require_once '../../cabecalhos/cabecalho_logado.php';
+?>
+    <?php require_once '../../menus/menu-home.php'; ?>
+
     <div class="container py-5">
       <div class="row justify-content-center">
         <div class="col-12 col-md-8 col-lg-6">
           <div class="card shadow-sm">
             <div class="card-body">
-              <div class="d-flex align-items-center justify-content-between mb-2">
-                <h1 class="h4 mb-0">Criar conta</h1>
-                <a class="link-secondary text-decoration-none" href="../../index.php"
-                  >Já tenho conta</a
-                >
+              <div>
+                <h1 class="h4 mb-3">Criar conta</h1>
               </div>
               <p class="text-muted mb-4">
                 Preencha seus dados para criar um usuário no sistema.
@@ -119,9 +108,10 @@
                 </div>
 
                 <div>
-                  <button type="submit" class="btn btn-success w-100">
-                    Cadastrar
-                  </button>
+                  <div class="d-grid gap-2 d-sm-flex">
+                    <button type="submit" class="btn btn-success flex-fill">Cadastrar</button>
+                    <a href="/ts/home.php" class="btn btn-secondary">Voltar</a>
+                  </div>
                 </div>
               </form>
 
@@ -131,9 +121,6 @@
               ></section>
             </div>
           </div>
-          <p class="text-center mt-3 mb-0 text-muted small">
-            Voltar para o <a href="../../index.php">login</a>
-          </p>
         </div>
       </div>
     </div>

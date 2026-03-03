@@ -1,0 +1,5 @@
+# Proteger listagem de diretório
+Options -Indexes
+
+# usar o mesmo documento de erro 403 da raiz public
+ErrorDocument 403 /ts/erro.php

@@ -11,6 +11,7 @@ export default defineConfig({
       input: {
         "user-form": resolve(__dirname, "dist/user-form.js"),
         "login-form": resolve(__dirname, "dist/login-form.js"),
+        "funcoes-bacanas": resolve(__dirname, "dist/funcoes_bacanas.js"),
         bootstrap: resolve(
           __dirname,
           "node_modules/bootstrap/dist/css/bootstrap.min.css"

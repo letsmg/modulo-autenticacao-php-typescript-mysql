@@ -1,0 +1,10 @@
+# Proteger listagem de diretório
+Options -Indexes
+
+# Garantir que PHP pode ser servido (Apache 2.4)
+<FilesMatch "\.php$">
+    Require all granted
+</FilesMatch>
+ 
+# Página de erro personalizada para 403
+ErrorDocument 403 /ts/erro.php
