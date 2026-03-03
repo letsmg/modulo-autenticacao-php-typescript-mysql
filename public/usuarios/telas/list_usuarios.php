@@ -35,7 +35,7 @@ require_once '../../cabecalhos/cabecalho_logado.php';
         <div class="card-body">
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 class="h5 mb-0">Usuários</h2>
-            <a href="/ts/home.php" class="btn btn-secondary btn-sm">Voltar</a>
+            <a href="<?= $base_url ?>/home.php" class="btn btn-secondary btn-sm">Voltar</a>
           </div>
           <table class="table table-striped mb-0">
             <thead>
@@ -52,7 +52,7 @@ require_once '../../cabecalhos/cabecalho_logado.php';
                   <td><?= htmlspecialchars($u['id']) ?></td>
                   <td><?= htmlspecialchars($u['nome']) ?></td>
                   <td><?= htmlspecialchars($u['email']) ?></td>
-                  <td><a class="btn btn-sm btn-primary" href="editar_usuario.php?id=<?= urlencode($u['id']) ?>">Editar</a></td>
+                  <td><a class="btn btn-sm btn-primary" href="edit_usuario.php?id=<?= urlencode($u['id']) ?>">Editar</a></td>
                 </tr>
               <?php endforeach; ?>
               <?php if (empty($users)): ?>

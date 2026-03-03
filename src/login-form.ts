@@ -90,7 +90,7 @@ function setupLoginForm(formId: string, outputId: string): void {
         output.innerHTML = `<div class="alert alert-success mb-0">${resp.mensagem}</div>`;
         // após login redireciona para edição do próprio usuário
         if (resp.sucesso && resp.usuario) {
-          window.location.href = `editar_usuario.php?id=${resp.usuario.id}`;
+          window.location.href = `edit_usuario.php?id=${resp.usuario.id}`;
         }
       })
       .catch(() => {

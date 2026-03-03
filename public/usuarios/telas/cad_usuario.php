@@ -1,13 +1,6 @@
 <?php
-if (!isset($_GET['id'])) {
-    // garante edição do próprio usuário se nenhum id for fornecido
-    $me = $_SESSION['usuario_id'];
-    header("Location: editar_usuario.php?id={$me}");
-    exit;
-}
-
-// título específico; o cabeçalho logado cuidará de sessão e CSS
-$titulo_pagina = 'Editar usuário';
+// título específico; o cabeçalho logado tratará sessão e CSS
+$titulo_pagina = 'Criar conta';
 require_once '../../cabecalhos/cabecalho_logado.php';
 ?>
     <?php require_once '../../menus/menu-home.php'; ?>
@@ -17,11 +10,11 @@ require_once '../../cabecalhos/cabecalho_logado.php';
         <div class="col-12 col-md-8 col-lg-6">
           <div class="card shadow-sm">
             <div class="card-body">
-              <h1 class="h4 mb-3">Editar usuário</h1>
+              <div>
+                <h1 class="h4 mb-3">Criar conta</h1>
+              </div>
               <p class="text-muted mb-4">
-                Faça as alterações desejadas. Administradores podem alterar o
-                nível de acesso e desativar outros usuários, mas não podem
-                desativar ou mudar o próprio nível.
+                Preencha seus dados para criar um usuário no sistema.
               </p>
 
               <form id="form-usuario" autocomplete="off" class="vstack gap-3">
@@ -49,7 +42,7 @@ require_once '../../cabecalhos/cabecalho_logado.php';
 
                 <div>
                   <label for="senha" class="form-label"
-                    >Senha (deixe em branco para manter a atual)</label
+                    >Senha (mínimo 6 caracteres)</label
                   >
                   <div class="input-group">
                     <input
@@ -58,6 +51,7 @@ require_once '../../cabecalhos/cabecalho_logado.php';
                       name="senha"
                       class="form-control"
                       minlength="6"
+                      required
                       autocomplete="new-password"
                     />
                     <button
@@ -82,6 +76,7 @@ require_once '../../cabecalhos/cabecalho_logado.php';
                       name="repetirSenha"
                       class="form-control"
                       minlength="6"
+                      required
                       autocomplete="new-password"
                     />
                     <button
@@ -108,27 +103,14 @@ require_once '../../cabecalhos/cabecalho_logado.php';
                     <option value="adm">Administrador</option>
                   </select>
                   <div class="form-text">
-                    O campo só ficará habilitado se você tiver permissão.
+                    Em produção, esse campo normalmente não ficaria exposto.
                   </div>
-                </div>
-
-                <div id="field-ativo" class="form-check d-none">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="ativo"
-                    name="ativo"
-                    value="1"
-                  />
-                  <label class="form-check-label" for="ativo">
-                    Usuário ativo
-                  </label>
                 </div>
 
                 <div>
                   <div class="d-grid gap-2 d-sm-flex">
-                    <button type="submit" class="btn btn-success flex-fill">Salvar</button>
-                    <a href="/ts/home.php" class="btn btn-secondary">Voltar</a>
+                    <button type="submit" class="btn btn-success flex-fill">Cadastrar</button>
+                    <a href="<?= $base_url ?>/home.php" class="btn btn-secondary">Voltar</a>
                   </div>
                 </div>
               </form>
@@ -139,7 +121,6 @@ require_once '../../cabecalhos/cabecalho_logado.php';
               ></section>
             </div>
           </div>
-
         </div>
       </div>
     </div>

@@ -22,8 +22,8 @@ $nome = htmlspecialchars($_SESSION['usuario_nome'] ?? 'Usuário');
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Usuários</a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<?= $base_url ?>/usuarios/telas/cadastro.php">Novo</a></li>
-            <li><a class="dropdown-item" href="<?= $base_url ?>/usuarios/telas/listar_usuarios.php">Editar</a></li>
+            <li><a class="dropdown-item" href="<?= $base_url ?>/usuarios/telas/cad_usuario.php">Novo</a></li>
+            <li><a class="dropdown-item" href="<?= $base_url ?>/usuarios/telas/list_usuarios.php">Editar</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">

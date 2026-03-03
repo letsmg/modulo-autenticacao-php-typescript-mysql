@@ -62,7 +62,7 @@ var LoginForm = (() => {
             }
             output.innerHTML = `<div class="alert alert-success mb-0">${resp.mensagem}</div>`;
             if (resp.sucesso && resp.usuario) {
-              window.location.href = `editar_usuario.php?id=${resp.usuario.id}`;
+              window.location.href = `edit_usuario.php?id=${resp.usuario.id}`;
             }
           }).catch(() => {
             output.innerHTML = '<div class="alert alert-danger mb-0">Erro inesperado ao comunicar com o servidor.</div>';
