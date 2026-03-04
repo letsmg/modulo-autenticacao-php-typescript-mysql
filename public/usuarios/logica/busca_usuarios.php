@@ -18,7 +18,7 @@ try {
 }
 
 try {
-    $stmt = $pdo->query('SELECT id, nome, email FROM usuarios ORDER BY id DESC');
+    $stmt = $pdo->query('SELECT * FROM usuarios ORDER BY id DESC');
     $users = $stmt->fetchAll();
 } catch (PDOException $e) {
     $users = [];

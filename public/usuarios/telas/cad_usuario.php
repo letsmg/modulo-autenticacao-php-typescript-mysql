@@ -110,7 +110,7 @@ require_once '../../cabecalhos/cabecalho_logado.php';
                 <div>
                   <div class="d-grid gap-2 d-sm-flex">
                     <button type="submit" class="btn btn-success flex-fill">Cadastrar</button>
-                    <a href="<?= $base_url ?>/home.php" class="btn btn-secondary">Voltar</a>
+                    <a href="<?= $base_url ?>/usuarios/telas/list_usuarios.php" class="btn btn-secondary">Voltar</a>
                   </div>
                 </div>
               </form>

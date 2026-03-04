@@ -1,332 +1,165 @@
-// Exemplos de TypeScript para formulário de cadastro
-
-// 1. Tipo especial (union type) para nível de acesso
 type AccessLevel = "adm" | "padrao";
 
-// 2. Interface para os dados do formulário
 interface UserFormData {
   id?: number;
-  nome: string;
-  email: string;
-  senha: string;
-  repetirSenha: string;
-  nivelAcesso: AccessLevel;
-  ativo?: boolean; // apenas para edição
+  nome?: string;
+  email?: string;
+  senha?: string;
+  repetirSenha?: string;
+  nivelAcesso?: AccessLevel;
+  ativo?: boolean;
 }
 
-// 3. Tipos para resultado de validação
-interface ValidationError {
-  campo: keyof UserFormData;
-  mensagem: string;
+// --- Funções Auxiliares de UI ---
+function exibirMensagem(container: HTMLElement, texto: string, tipo: 'success' | 'danger' | 'warning' | 'info') {
+  container.innerHTML = `
+    <div class="alert alert-${tipo} alert-dismissible fade show" role="alert">
+      ${texto}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  `;
 }
 
-interface ValidationResult {
-  valido: boolean;
-  erros: ValidationError[];
-}
+// --- Validação ---
+function validarUsuario(data: UserFormData) {
+  const erros: string[] = [];
+  const isStatusOnly = data.id !== undefined && data.ativo !== undefined && !data.nome;
+  
+  if (isStatusOnly) return { valido: true, erros: [] };
 
-interface ApiResponse {
-  sucesso: boolean;
-  mensagem: string;
-  erros?: string[];
-  usuario?: {
-    id: number;
-    nome: string;
-    email: string;
-    nivel_acesso: number;
-    ativo?: number;
-  };
-}
-
-// resposta devolvida ao pedir um usuário existente
-interface GetUserResponse {
-  sucesso: boolean;
-  mensagem?: string;
-  usuario?: {
-    id: number;
-    nome: string;
-    email: string;
-    nivel_acesso: number;
-    ativo: number;
-  };
-  canChangeAccess?: boolean;
-  canDeactivate?: boolean;
-}
-
-function validarUsuario(data: UserFormData): ValidationResult {
-  const erros: ValidationError[] = [];
-
-  if (!data.nome.trim()) {
-    erros.push({ campo: "nome", mensagem: "Nome é obrigatório." });
+  if (!data.nome?.trim()) erros.push("O <strong>Nome</strong> é obrigatório.");
+  if (!data.email?.trim()) erros.push("O <strong>E-mail</strong> é obrigatório.");
+  
+  if (data.id === undefined && !data.senha) {
+    erros.push("A <strong>Senha</strong> é obrigatória para novos cadastros.");
   }
 
-  if (!data.email.trim()) {
-    erros.push({ campo: "email", mensagem: "E-mail é obrigatório." });
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-    erros.push({ campo: "email", mensagem: "E-mail inválido." });
+  if (data.senha && data.senha.length < 6) {
+    erros.push("A senha deve ter no mínimo <strong>6 caracteres</strong>.");
   }
 
-  // senha só é obrigatória em cadastro; na edição pode ficar em branco para manter a antiga
-  if (data.senha || data.repetirSenha) {
-    if (data.senha.length < 6) {
-      erros.push({
-        campo: "senha",
-        mensagem: "Senha deve ter pelo menos 6 caracteres.",
-      });
-    }
-
-    if (data.senha !== data.repetirSenha) {
-      erros.push({
-        campo: "repetirSenha",
-        mensagem: "As senhas não conferem.",
-      });
-    }
+  if (data.senha !== data.repetirSenha) {
+    erros.push("As senhas digitadas <strong>não conferem</strong>.");
   }
 
-  if (data.nivelAcesso !== "adm" && data.nivelAcesso !== "padrao") {
-    erros.push({
-      campo: "nivelAcesso",
-      mensagem: "Nível de acesso inválido.",
-    });
-  }
-
-  return {
-    valido: erros.length === 0,
-    erros,
-  };
+  return { valido: erros.length === 0, erros };
 }
 
-function formatarUsuario(data: UserFormData): string {
-  return [
-    `Nome: ${data.nome}`,
-    `E-mail: ${data.email}`,
-    `Nível de acesso: ${data.nivelAcesso === "adm" ? "Administrador" : "Padrão"}`,
-  ].join("\n");
-}
+// --- Envio ---
+async function enviarParaServidor(data: UserFormData) {
+  const payload: any = { ...data };
+  payload.nivelAcesso = data.nivelAcesso === "adm" ? 1 : 0;
+  if (data.ativo !== undefined) payload.ativo = data.ativo ? 1 : 0;
 
-async function enviarParaServidor(data: UserFormData): Promise<ApiResponse> {
-  const payload: any = {
-    nome: data.nome,
-    email: data.email,
-    senha: data.senha,
-    repetirSenha: data.repetirSenha,
-    nivelAcesso: data.nivelAcesso,
-  };
-  if (data.id !== undefined) {
-    payload.id = data.id;
-  }
-  if (data.ativo !== undefined) {
-    // servidor espera 0/1
-    payload.ativo = data.ativo ? 1 : 0;
-  }
-
-  const resposta = await fetch("../../usuarios/logica/salvar_usuario.php", {
+  const resp = await fetch("../logica/salvar_usuario.php", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
   });
-
-  const json = (await resposta.json()) as ApiResponse;
-  return json;
+  return await resp.json();
 }
 
-function setupPasswordToggles(): void {
-  const buttons = document.querySelectorAll<HTMLButtonElement>(
-    ".toggle-password"
-  );
+// --- Lógica Principal ---
+function setupUserForm(formId: string, outputId: string) {
+  const form = document.getElementById(formId) as HTMLFormElement;
+  const output = document.getElementById(outputId) as HTMLElement;
+  if (!form || !output) return;
 
-  buttons.forEach((btn) => {
-    const targetId = btn.getAttribute("data-target");
-    if (!targetId) return;
-
-    const input = document.getElementById(targetId) as
-      | HTMLInputElement
-      | null;
-    if (!input) return;
-
-    btn.addEventListener("click", () => {
-      const isPassword = input.type === "password";
-      input.type = isPassword ? "text" : "password";
-
-      const icon = btn.querySelector("i");
-      if (icon) {
-        icon.classList.toggle("bi-eye", !isPassword);
-        icon.classList.toggle("bi-eye-slash", isPassword);
-      }
-    });
-  });
-}
-
-function setupUserForm(formId: string, outputId: string): void {
-  const form = document.getElementById(formId) as HTMLFormElement | null;
-  const output = document.getElementById(outputId);
-
-  if (!form || !output) {
-    return;
-  }
-
-  const formEl = form as HTMLFormElement;
-  const outputEl = output as HTMLElement;
-
-  let canChangeAccess = true;
-  let canDeactivate = true;
-
-  // carregamento em caso de edição
   async function tryLoad() {
-    const params = new URLSearchParams(window.location.search);
-    const idParam = params.get("id");
-    if (idParam) {
-      const id = parseInt(idParam, 10);
-      if (!isNaN(id)) {
-        outputEl.innerHTML = "Carregando dados...";
-        try {
-          const resp = await fetchUser(id);
-          if (!resp.sucesso || !resp.usuario) {
-            outputEl.innerHTML = `<div class="alert alert-danger">${resp.mensagem || "Erro ao obter usuário."}</div>`;
-            // impedir envio caso a consulta falhe
-            formEl.querySelectorAll("input,select,button").forEach(el => {
-              (el as HTMLInputElement).disabled = true;
-            });
-            return;
-          }
-          const u = resp.usuario;
-          (formEl.elements.namedItem("nome") as HTMLInputElement).value = u.nome;
-          (formEl.elements.namedItem("email") as HTMLInputElement).value = u.email;
-          const nivelEl = formEl.elements.namedItem("nivelAcesso") as HTMLSelectElement;
-          nivelEl.value = u.nivel_acesso === 1 ? "adm" : "padrao";
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get("id");
+    if (!id) return;
 
-          let hidden = formEl.querySelector<HTMLInputElement>('input[name="id"]');
-          if (!hidden) {
-            hidden = document.createElement("input");
-            hidden.type = "hidden";
-            hidden.name = "id";
-            formEl.appendChild(hidden);
-          }
-          hidden.value = String(u.id);
+    output.innerHTML = `
+      <div class="d-flex align-items-center text-primary mb-3">
+        <div class="spinner-border spinner-border-sm me-2"></div>
+        <strong>Carregando dados do usuário...</strong>
+      </div>`;
 
-          canChangeAccess = !!resp.canChangeAccess;
-          canDeactivate = !!resp.canDeactivate;
-          if (!canChangeAccess) {
-            nivelEl.disabled = true;
-          }
+    try {
+      // Nome do arquivo corrigido para obter_usuario.php
+      const res = await fetch(`../logica/obter_usuario.php?id=${id}`);
+      
+      if (!res.ok) throw new Error(`Erro ${res.status}: Não foi possível contatar o servidor.`);
+      
+      const json = await res.json();
 
-          // campo "ativo" já pode estar no HTML; apenas preenchemos
-          const ativoEl = formEl.querySelector<HTMLInputElement>('input[name="ativo"]');
-          if (ativoEl) {
-            ativoEl.checked = u.ativo === 1;
-            if (!canDeactivate) {
-              ativoEl.disabled = true;
-            }
-            ativoEl.closest(".form-check")?.classList.remove("d-none");
-          }
-
-          const submitBtn = formEl.querySelector('button[type="submit"]');
-          if (submitBtn) submitBtn.textContent = "Salvar";
-          outputEl.innerHTML = "";
-        } catch (e) {
-          outputEl.innerHTML = '<div class="alert alert-danger">Erro ao carregar dados.</div>';
+      if (json.sucesso && json.usuario) {
+        const u = json.usuario;
+        (form.elements.namedItem("nome") as HTMLInputElement).value = u.nome || "";
+        (form.elements.namedItem("email") as HTMLInputElement).value = u.email || "";
+        
+        const nivelField = form.elements.namedItem("nivelAcesso") as HTMLSelectElement;
+        if (nivelField) {
+            nivelField.value = (u.nivel_acesso == 1) ? "adm" : "padrao";
         }
+
+        let hidden = form.querySelector('input[name="id"]') as HTMLInputElement;
+        if (!hidden) {
+          hidden = document.createElement("input");
+          hidden.type = "hidden";
+          hidden.name = "id";
+          form.appendChild(hidden);
+        }
+        hidden.value = String(u.id);
+
+        const ativoEl = form.querySelector('input[name="ativo"]') as HTMLInputElement;
+        if (ativoEl) {
+          ativoEl.checked = (u.ativo == 1);
+          ativoEl.closest(".form-check")?.classList.remove("d-none");
+        }
+        output.innerHTML = ""; 
+      } else {
+        exibirMensagem(output, json.mensagem || "Usuário não encontrado.", "danger");
       }
+    } catch (e: any) {
+      exibirMensagem(output, `<strong>Erro de Conexão:</strong> ${e.message}`, "danger");
     }
   }
 
   tryLoad();
 
-  formEl.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    const formData = new FormData(formEl);
-
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const fd = new FormData(form);
     const data: UserFormData = {
-      nome: String(formData.get("nome") ?? ""),
-      email: String(formData.get("email") ?? ""),
-      senha: String(formData.get("senha") ?? ""),
-      repetirSenha: String(formData.get("repetirSenha") ?? ""),
-      nivelAcesso: (formData.get("nivelAcesso") as AccessLevel) ?? "padrao",
+      nome: fd.get("nome")?.toString(),
+      email: fd.get("email")?.toString(),
+      senha: fd.get("senha")?.toString(),
+      repetirSenha: fd.get("repetirSenha")?.toString(),
+      nivelAcesso: (fd.get("nivelAcesso") as AccessLevel),
+      id: fd.get("id") ? Number(fd.get("id")) : undefined,
+      ativo: form.elements.namedItem("ativo") ? (form.elements.namedItem("ativo") as HTMLInputElement).checked : undefined
     };
 
-    const idVal = formData.get("id");
-    if (idVal) {
-      data.id = Number(idVal);
-    }
-
-    if (formData.get("ativo") !== null) {
-      data.ativo = !!(formData.get("ativo") === "1" && (formEl.elements.namedItem("ativo") as HTMLInputElement).checked);
-    }
-
-    const resultado = validarUsuario(data);
-
-    if (!resultado.valido) {
-      outputEl.innerHTML =
-        "<strong>Erros de validação (frontend):</strong><ul>" +
-        resultado.erros
-          .map((e) => `<li><strong>${e.campo}:</strong> ${e.mensagem}</li>`)
-          .join("") +
-        "</ul>";
+    const v = validarUsuario(data);
+    if (!v.valido) {
+      exibirMensagem(output, v.erros.join("<br>"), "warning");
       return;
     }
 
-    // se não tiver permissão, não envie campos proibidos
-    if (data.id !== undefined && !canChangeAccess) {
-      delete (data as any).nivelAcesso;
+    output.innerHTML = `
+      <div class="d-flex align-items-center text-info mb-3">
+        <div class="spinner-border spinner-border-sm me-2"></div>
+        Salvando alterações...
+      </div>`;
+
+    try {
+      const res = await enviarParaServidor(data);
+      if (res.sucesso) {
+        exibirMensagem(output, `<strong>Sucesso!</strong> ${res.mensagem}`, "success");
+        if (!data.id) form.reset();
+      } else {
+        exibirMensagem(output, `<strong>Erro:</strong> ${res.mensagem}`, "danger");
+      }
+    } catch (err) {
+      exibirMensagem(output, "<strong>Erro fatal:</strong> Não foi possível salvar os dados.", "danger");
     }
-    if (data.id !== undefined && !canDeactivate) {
-      delete (data as any).ativo;
-    }
-
-    outputEl.innerHTML = "Enviando...";
-
-    enviarParaServidor(data)
-      .then((resp) => {
-        if (!resp.sucesso) {
-          const errosServidor =
-            resp.erros && resp.erros.length
-              ? "<ul>" +
-                resp.erros.map((m) => `<li>${m}</li>`).join("") +
-                "</ul>"
-              : "";
-          outputEl.innerHTML =
-            "<strong>Falha ao salvar:</strong> " +
-            resp.mensagem +
-            errosServidor;
-          return;
-        }
-
-        const usuarioInfo = resp.usuario
-          ? `ID: ${resp.usuario.id}
-${formatarUsuario({
-              nome: resp.usuario.nome,
-              email: resp.usuario.email,
-              senha: data.senha,
-              repetirSenha: data.repetirSenha,
-              nivelAcesso: data.nivelAcesso,
-            })}`
-          : formatarUsuario(data);
-
-        outputEl.innerHTML =
-          "<strong>Dados salvos com sucesso!</strong><pre>" +
-          usuarioInfo +
-          "</pre>";
-      })
-      .catch(() => {
-        outputEl.innerHTML =
-          "<strong>Erro inesperado ao comunicar com o servidor.</strong>";
-      });
   });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  setupPasswordToggles();
   setupUserForm("form-usuario", "resultado");
 });
 
-// faz requisição para buscar os dados de um usuário existente
-async function fetchUser(id: number): Promise<GetUserResponse> {
-  const resp = await fetch(`../logica/obter_usuario.php?id=${id}`);
-  return (await resp.json()) as GetUserResponse;
-}
-
 export {};
-

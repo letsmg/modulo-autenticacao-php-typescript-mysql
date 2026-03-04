@@ -8,7 +8,7 @@
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark navbar-primary">
   <div class="container">
-    <a class="navbar-brand" href="<?= $base_url ?>/home.php">Painel</a>
+    <a class="navbar-brand" href="<?= $base_url ?>/home.php">Php + Boostrap + Typescript</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -21,13 +21,13 @@
             <li><a class="dropdown-item" href="<?= $base_url ?>/usuarios/telas/list_usuarios.php">Editar</a></li>
           </ul>
         </li>
-        <li class="nav-item dropdown">
+        <!-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Produtos</a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Novo</a></li>
             <li><a class="dropdown-item" href="#">Editar</a></li>
           </ul>
-        </li>
+        </li> -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Mensagens</a>
           <ul class="dropdown-menu">
