@@ -30,10 +30,10 @@ http_response_code(403);
 
     <script>
       (function(){
-        var t = 3;
+        var t = 5;
         var el = document.getElementById('count');
         var id = setInterval(function(){
-          t--; if(t<=0){ clearInterval(id); window.location.href = '/ts/index.php'; return; }
+          t--; if(t<=0){ clearInterval(id); window.location.href = '/ts/public/index.php'; return; }
           el.textContent = t;
         }, 1000);
       })();

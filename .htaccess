@@ -1,28 +1,10 @@
-# Proteger listagem de diretório
+# 1. Impede a listagem de arquivos em qualquer diretório
 Options -Indexes
 
-# Redirecionar acesso à raiz do projeto para a pasta public
-# Quando o usuário acessar http://localhost/ts/ será redirecionado para /ts/public/
-RewriteEngine On
-RewriteBase /ts/
-RewriteRule ^$ /ts/public/ [R=302,L]
+# 2. Define a página personalizada para o erro 403 (Acesso Proibido)
+ErrorDocument 403 /ts/public/forbidden.php
 
-# Bloquear acesso a arquivos de configuração sensíveis (Apache 2.4)
-<Files "vite.config.js">
+# 3. (Opcional) Protege o próprio arquivo .htaccess de ser lido
+<Files ".htaccess">
     Require all denied
 </Files>
-
-<Files "package.json">
-    Require all denied
-</Files>
-
-<Files "pnpm-lock.yaml">
-    Require all denied
-</Files>
-
-<FilesMatch "\.(ts|sql)$">
-    Require all denied
-</FilesMatch>
-
-# Nota: diretivas <Directory> não são permitidas em .htaccess. Para bloquear
-# diretórios específicos colocamos um .htaccess dentro das pastas (ex: dist/.htaccess)

@@ -4,12 +4,7 @@
  * Requer sessão ativa ($_SESSION['usuario_id'])
  */
 
-if (!isset($_SESSION['usuario_id'])) {
-    header('Location: ../../index.php');
-    exit;
-}
 
-$nome = htmlspecialchars($_SESSION['usuario_nome'] ?? 'Usuário');
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark navbar-primary">
   <div class="container">
@@ -36,8 +31,8 @@ $nome = htmlspecialchars($_SESSION['usuario_nome'] ?? 'Usuário');
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Mensagens</a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Nova</a></li>
-            <li><a class="dropdown-item" href="#">Editar</a></li>
+            <li><a class="dropdown-item" href="<?= $base_url ?>/usuarios/telas/env-mensagem.php">Nova</a></li>
+            <li><a class="dropdown-item" href="<?= $base_url ?>/usuarios/telas/list-mensagens.php">Editar</a></li>
           </ul>
         </li>
       </ul>

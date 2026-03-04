@@ -1,47 +1,53 @@
 {
-  // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
-    // File Layout
+    // Ambiente e compatibilidade
+    "target": "es2019",
+    "module": "commonjs",
+    "lib": [
+      "es2019",
+      "dom",
+      "dom.iterable"          // ← ESSENCIAL para FormData.entries()
+    ],
+
+    // Diretórios de entrada/saída (usado pelo tsc)
     "rootDir": "src",
     "outDir": "dist",
 
-    // Environment Settings
-    // See also https://aka.ms/tsconfig/module
-    "module": "commonjs",
-    "target": "es2019",
-    // Este projeto usa apenas código para navegador (fetch, DOM),
-    // então não precisamos mais dos tipos do Node aqui.
-    "types": [],
-    "lib": ["es2019", "dom"],
-
-    // Other Outputs
+    // Saídas adicionais
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
 
-    // Stricter Typechecking Options
+    // Type checking rigoroso (mantido como você tinha)
+    "strict": true,
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
-
-    // Style Options
-    // "noImplicitReturns": true,
-    // "noImplicitOverride": true,
-    // "noUnusedLocals": true,
-    // "noUnusedParameters": true,
-    // "noFallthroughCasesInSwitch": true,
-    // "noPropertyAccessFromIndexSignature": true,
-
-    // Recommended Options
-    "strict": true,
-    "jsx": "react-jsx",
-    // Para este projeto Node comum, desabilitamos algumas opções mais avançadas
-    // que estavam causando conflito com CommonJS:
-    "verbatimModuleSyntax": false,
-    "isolatedModules": false,
     "noUncheckedSideEffectImports": true,
-    "moduleDetection": "legacy",
-    "skipLibCheck": true,
 
+    // Compatibilidade com bundlers e CommonJS
     "esModuleInterop": true,
-  }
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": true,          // Recomendado pelo Vite
+    "verbatimModuleSyntax": false,    // Mantido como você tinha
+    "moduleDetection": "legacy",
+
+    // Performance e skips
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // Não precisa de JSX (seu projeto não usa React)
+    // "jsx": "react-jsx" → removido
+  },
+
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"   // caso tenha no futuro
+  ],
+
+  "exclude": [
+    "node_modules",
+    "dist",
+    "public",
+    "**/*.js"        // ignora .js se misturados com .ts
+  ]
 }

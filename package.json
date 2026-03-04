@@ -3,17 +3,26 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
+  "type": "commonjs",
   "scripts": {
-    "build": "tsc && vite build && npm run build:iife",
-    "build:iife": "npx esbuild dist/login-form.js --bundle --format=iife --global-name=LoginForm --outfile=public/js/login-form.js && npx esbuild dist/user-form.js --bundle --format=iife --global-name=UserForm --outfile=public/js/user-form.js"
+    "dev": "vite",
+    "build:dev": "vite build --config vite.config.dev.ts",
+    "build:prod": "vite build --config vite.config.prod.ts",
+    "build:all": "npm run build:dev && npm run build:prod",
+    "build:iife": "npx esbuild dist/login-form.js --bundle --format=iife --global-name=LoginForm --outfile=public/js/login-form.js && npx esbuild dist/user-form.js --bundle --format=iife --global-name=UserForm --outfile=public/js/user-form.js && npx esbuild dist/mensagem-form.js --bundle --format=iife --global-name=MensagemForm --outfile=public/js/mensagem-form.js && npx esbuild dist/notificacoes.js --bundle --format=iife --global-name=Notificacoes --outfile=public/js/notificacoes.js",
+    "watch:dev": "vite build --watch --config vite.config.dev.ts",
+    "watch:prod": "vite build --watch --config vite.config.prod.ts",    
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "devDependencies": {
+    "@types/bootstrap": "^5.2.10",
+    "@types/node": "^25.3.3",
     "bootstrap": "^5.3.8",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3"    
   }
 }

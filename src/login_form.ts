@@ -47,7 +47,7 @@ function setupPasswordToggles(): void {
 }
 
 async function login(payload: LoginPayload): Promise<LoginResponse> {
-  const resposta = await fetch("login_usuario.php", {
+  const resposta = await fetch("usuarios/logica/login_usuario.php", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -90,7 +90,7 @@ function setupLoginForm(formId: string, outputId: string): void {
         output.innerHTML = `<div class="alert alert-success mb-0">${resp.mensagem}</div>`;
         // após login redireciona para edição do próprio usuário
         if (resp.sucesso && resp.usuario) {
-          window.location.href = `edit_usuario.php?id=${resp.usuario.id}`;
+          window.location.href = 'home.php';
         }
       })
       .catch(() => {

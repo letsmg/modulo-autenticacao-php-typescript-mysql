@@ -1,27 +1,8 @@
 <?php
-session_start();
-
-// Se usuário já está logado, redireciona para home
-if (isset($_SESSION['usuario_id'])) {
-    header('Location: home.php');
-    exit;
-}
+  $titulo_pagina = 'bem-vindo';
+  require_once './cabecalhos/cabecalho_index.php';
 ?>
-<!DOCTYPE html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Login</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="css/bootstrap.css" />
-    <link rel="stylesheet" href="css/custom.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
-  </head>
-  <body class="bg-body-tertiary">
-    <div class="container py-5">
+    <div class="container d-flex flex-column justify-content-center min-vh-100">
       <div class="row justify-content-center">
         <div class="col-12 col-md-8 col-lg-5">
           <div class="card shadow-sm">
@@ -58,7 +39,7 @@ if (isset($_SESSION['usuario_id'])) {
                       class="form-control"
                       autocomplete="current-password"
                       required
-                      value="123456"
+                      value="Abratesesamo*"
                     />
                     <button
                       type="button"
@@ -90,8 +71,27 @@ if (isset($_SESSION['usuario_id'])) {
           </p>
         </div>
       </div>
-    </div>
 
-    <script type="module" src="usuarios/telas/js/login-form.js"></script>
+
+      <div class="d-flex gap-2 justify-content-center mb-4">
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-seeder>
+          <i class="bi bi-magic"></i> Popular formulário
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-danger" data-limpar>
+          <i class="bi bi-trash"></i> Limpar formulário
+        </button>
+      </div>
+
+
+
+
+    <!-- fim do container -->
+    </div> 
+
+    
+
+
+    <script type="module" src="<?= $base_url; ?>/js/login_form.min.js"></script>
+    <script type="module" src="<?= $base_url; ?>/js/funcoes_bacanas.min.js"></script>
   </body>
   </html>

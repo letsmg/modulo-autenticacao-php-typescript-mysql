@@ -5,12 +5,12 @@
  */
 
 ini_set('session.gc_maxlifetime', 120); // 2 minutos
-session_set_cookie_params(['lifetime' => 120, 'path' => '/']);
+session_set_cookie_params(['lifetime' => 600, 'path' => '/']);
 
 session_start();
 
 // Verificar timeout de inatividade
-$timeout = 120; // 2 minutos em segundos
+$timeout = 600; // 2 minutos em segundos
 $tempo_atual = time();
 
 if (isset($_SESSION['usuario_id'])) {

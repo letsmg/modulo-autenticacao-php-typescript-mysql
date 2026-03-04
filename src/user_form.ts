@@ -120,7 +120,7 @@ async function enviarParaServidor(data: UserFormData): Promise<ApiResponse> {
     payload.ativo = data.ativo ? 1 : 0;
   }
 
-  const resposta = await fetch("salvar_usuario.php", {
+  const resposta = await fetch("../../usuarios/logica/salvar_usuario.php", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -324,7 +324,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // faz requisição para buscar os dados de um usuário existente
 async function fetchUser(id: number): Promise<GetUserResponse> {
-  const resp = await fetch(`obter_usuario.php?id=${id}`);
+  const resp = await fetch(`../logica/obter_usuario.php?id=${id}`);
   return (await resp.json()) as GetUserResponse;
 }
 

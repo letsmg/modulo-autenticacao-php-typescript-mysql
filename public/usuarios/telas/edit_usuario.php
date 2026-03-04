@@ -1,17 +1,14 @@
 <?php
-if (!isset($_GET['id'])) {
-    // garante edição do próprio usuário se nenhum id for fornecido
-    $me = $_SESSION['usuario_id'];
-    header("Location: edit_usuario.php?id={$me}");
-    exit;
-}
+
 
 // título específico; o cabeçalho logado cuidará de sessão e CSS
 $titulo_pagina = 'Editar usuário';
 require_once '../../cabecalhos/cabecalho_logado.php';
 ?>
-    <?php require_once '../../menus/menu-home.php'; ?>
-
+    <?php require_once '../../menus/menu_logado.php'; ?>
+    <?php /*
+    <?php require_once '../logica/obter_usuario.php'; ?>
+    */ ?>
     <div class="container py-5">
       <div class="row justify-content-center">
         <div class="col-12 col-md-8 col-lg-6">
@@ -33,6 +30,7 @@ require_once '../../cabecalhos/cabecalho_logado.php';
                     name="nome"
                     class="form-control"
                     required
+                    value=""
                   />
                 </div>
 
@@ -142,8 +140,22 @@ require_once '../../cabecalhos/cabecalho_logado.php';
 
         </div>
       </div>
+
+
+      <div class="d-flex gap-2 justify-content-center mb-4">
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-seeder>
+          <i class="bi bi-magic"></i> Popular formulário
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-danger" data-limpar>
+          <i class="bi bi-trash"></i> Limpar formulário
+        </button>
+      </div>
+
+
+      
     </div>
 
-    <script type="module" src="js/user-form.js"></script>
+    <script type="module" src="<?= $base_url; ?>/js/user_form.min.js"></script>
+    <script type="module" src="<?= $base_url; ?>/js/funcoes_bacanas.min.js"></script>
   </body>
   </html>
