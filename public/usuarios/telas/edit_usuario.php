@@ -4,6 +4,9 @@
 // título específico; o cabeçalho logado cuidará de sessão e CSS
 $titulo_pagina = 'Editar usuário';
 require_once '../../cabecalhos/cabecalho_logado.php';
+$id_alvo = $_GET['id'] ?? 0;
+$nivel_logado = $_SESSION['nivel_acesso'] ?? 0;
+
 ?>
     <?php require_once '../../menus/menu_logado.php'; ?>
     <?php /*
