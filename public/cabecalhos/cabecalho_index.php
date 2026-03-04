@@ -1,5 +1,7 @@
 <?php
 // Start session only if not already started to avoid PHP Notice when included
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ts/config/config.php';
+
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }

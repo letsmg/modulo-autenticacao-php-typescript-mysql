@@ -4,6 +4,8 @@
  * Inclui verificação de sessão e configura valores padrões de CSS.
  * Páginas podem definir $titulo_pagina antes de incluir este arquivo.
  */
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ts/config/config.php';
+
 // checa sessão e timeout
 require_once __DIR__ . '/../usuarios/logica/session_manager.php';
 

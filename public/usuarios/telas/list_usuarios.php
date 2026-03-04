@@ -2,7 +2,11 @@
 // Título e inclusões
 $titulo_pagina = 'Listar usuários';
 require_once '../../cabecalhos/cabecalho_logado.php';
-require_once '../logica/busca_usuarios.php';
+
+//var_dump(BASE_RAIZ);
+// var_dump(BASE_URL);
+require_once DIR_PUB.'/usuarios/logica/busca_usuarios.php';
+
 
 // Pegamos o ID do usuário logado para a comparação
 $id_logado = $_SESSION['usuario_id'] ?? 0;
@@ -14,7 +18,12 @@ $id_logado = $_SESSION['usuario_id'] ?? 0;
         <div class="card-body">
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 class="h5 mb-0">Usuários</h2>
-            <a href="<?= $base_url ?>/home.php" class="btn btn-secondary btn-sm">Voltar</a>
+            <div>
+                <a href="<?= BASE_URL ?>usuarios/telas/cad_usuario.php" class="btn btn-primary btn-sm">
+                    <i class="bi bi-plus-circle"></i> Novo Usuário
+                </a>
+                <a href="<?= BASE_URL ?>home.php" class="btn btn-secondary btn-sm">Voltar</a>
+            </div>
           </div>
           <table class="table table-striped mb-0">
             <thead>
@@ -33,13 +42,17 @@ $id_logado = $_SESSION['usuario_id'] ?? 0;
                   <td><?= htmlspecialchars($u['email']) ?></td>
                   <td class="text-center">
                     <div class="btn-group">
-                      <a class="btn btn-sm btn-primary" href="edit_usuario.php?id=<?= urlencode($u['id']) ?>">
+                      <a class="btn btn-sm btn-warning" href="edit_usuario.php?id=<?= urlencode($u['id']) ?>">
                         <i class="bi bi-pencil"></i> Editar
                       </a>
                       
                       <?php if ($u['id'] != $id_logado): ?>
+                        <button class="btn btn-sm btn-danger btn-excluir" data-id="<?= $u['id'] ?>" data-nome="<?= htmlspecialchars($u['nome']) ?>">
+                          <i class="bi bi-trash"></i> Excluir
+                        </button>
+
                         <?php if ($u['ativo']): ?>
-                          <button class="btn btn-sm btn-danger btn-toggle-status" data-id="<?= $u['id'] ?>" data-acao="desativar">
+                          <button class="btn btn-sm btn-secondary btn-toggle-status" data-id="<?= $u['id'] ?>" data-acao="desativar">
                             <i class="bi bi-person-x"></i> Desativar
                           </button>
                         <?php else: ?>
@@ -65,6 +78,7 @@ $id_logado = $_SESSION['usuario_id'] ?? 0;
     </div>
 
     <script>
+    // Lógica para Ativar/Desativar
     document.querySelectorAll('.btn-toggle-status').forEach(button => {
         button.addEventListener('click', async function() {
             const id = this.dataset.id;
@@ -80,12 +94,39 @@ $id_logado = $_SESSION['usuario_id'] ?? 0;
                     });
                     const res = await response.json();
                     if (res.sucesso) {
-                        location.reload(); // Recarrega para atualizar o botão
+                        location.reload();
                     } else {
                         alert('Erro: ' + res.mensagem);
                     }
                 } catch (e) {
                     alert('Erro ao processar requisição.');
+                }
+            }
+        });
+    });
+
+    // Lógica para Excluir (Novo)
+    document.querySelectorAll('.btn-excluir').forEach(button => {
+        button.addEventListener('click', async function() {
+            const id = this.dataset.id;
+            const nome = this.dataset.nome;
+
+            if (confirm(`ATENÇÃO: Deseja realmente EXCLUIR o usuário "${nome}"? Esta ação não pode ser desfeita.`)) {
+                try {
+                    const response = await fetch('../logica/excluir_usuario.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ id: id })
+                    });
+                    const res = await response.json();
+                    if (res.sucesso) {
+                        alert(res.mensagem);
+                        location.reload();
+                    } else {
+                        alert('Erro: ' + res.mensagem);
+                    }
+                } catch (e) {
+                    alert('Erro ao processar a exclusão.');
                 }
             }
         });
