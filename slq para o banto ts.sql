@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 04/03/2026 às 12:17
+-- Tempo de geração: 04/03/2026 às 16:09
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -29,12 +29,12 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `mensagens` (
   `id` int(11) NOT NULL,
-  `remetente_id` int(11) NOT NULL,
-  `destinatario_id` int(11) NOT NULL,
-  `mensagem` text NOT NULL,
-  `data_envio` datetime DEFAULT current_timestamp(),
-  `lida` tinyint(1) DEFAULT 0 COMMENT '0 = não lida, 1 = lida'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `id_remetente` int(11) NOT NULL,
+  `id_destinatario` int(11) NOT NULL,
+  `texto` text NOT NULL,
+  `data_envio` datetime NOT NULL,
+  `lida` tinyint(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -59,13 +59,10 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `nivel_acesso`, `criado_em`, `atualizado_em`, `ultimo_login`, `ativo`) VALUES
-(1, 'admin', 'a@a.com', '$2y$10$2FlVu4dEJaxIuQMVQefwl.gjqpGQFvsA6J.BDet7IIvVaz9uHbHoy', 1, '2026-03-03 09:06:21', '2026-03-04 07:40:04', '2026-03-04 07:40:04', 1),
-(24, 'rf87lbps', 'teste784@email.com', '$2y$10$czPRukYWTAUfWog0wgHd/ePAq.j.dXD7a/m1Ea2DyovJNss/apsI2', 1, '2026-03-03 18:11:33', '2026-03-04 07:51:24', NULL, 1),
-(25, 'dc191qm3', 'teste695@email.com', '$2y$10$XyT6KhYbUNmN7Bv7c3TfFeKf0w36YLD5SgVjm8LxwOWjKHZ/mOS0.', 0, '2026-03-03 18:12:10', '2026-03-03 18:12:10', NULL, 1),
-(27, 'tck1x8kl', 'teste863@email.com', '$2y$10$S/3d1u3nS7oWZK99zIYfAOIQ9fktWLvyjp61.4q1kusQqlY8a5Zfa', 0, '2026-03-03 18:12:18', '2026-03-03 18:12:18', NULL, 1),
-(28, '6sijjlc3', 'teste230@email.com', '$2y$10$.n89OMbzAQWJtuF2TfYDsuV9N6/0yBouoqoyyh6K4DlxFQnsLdyk.', 0, '2026-03-03 18:13:19', '2026-03-03 18:13:19', NULL, 1),
-(29, 'vn39o2yn', 'teste813@email.com', '$2y$10$IZleUQSz.reQXkWUudjLven0bXe3EbW3IIEjAXiYnf07.Y.7dPzb2', 0, '2026-03-04 07:38:11', '2026-03-04 07:38:11', NULL, 1),
-(30, 'yk8zyfd4', 'teste961@email.com', '$2y$10$2FlVu4dEJaxIuQMVQefwl.gjqpGQFvsA6J.BDet7IIvVaz9uHbHoy', 0, '2026-03-04 07:39:42', '2026-03-04 07:39:42', NULL, 1);
+(1, 'admin', 'a@a.com', '$2y$10$2FlVu4dEJaxIuQMVQefwl.gjqpGQFvsA6J.BDet7IIvVaz9uHbHoy', 1, '2026-03-03 09:06:21', '2026-03-04 11:54:22', '2026-03-04 11:54:22', 1),
+(53, '32c5vic9', 'teste175@email.com', '$2y$10$Ganr2Far0S6ZdRPL3vr4XefX1aJbvS2VQdYLg2DFBWRHnLhnMYdDy', 1, '2026-03-04 10:45:16', '2026-03-04 10:45:16', NULL, 1),
+(58, 'oexyfc8w', 'teste103@email.com', '$2y$10$wsWcszdDj89Q4YL8QEjlCOYhYyQst0EyWaln9MpRoA0lXEJzqAt/e', 1, '2026-03-04 10:59:12', '2026-03-04 10:59:12', NULL, 1),
+(59, '09xxurlw', 'teste655@email.com', '$2y$10$BzF6oUTzkOTD0P7zcYJDCOHQUrmXIifYpuVLhoVWOlYTMyAa8TA2K', 0, '2026-03-04 10:59:17', '2026-03-04 10:59:17', NULL, 1);
 
 --
 -- Índices para tabelas despejadas
@@ -76,8 +73,8 @@ INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `nivel_acesso`, `criado_
 --
 ALTER TABLE `mensagens`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `idx_remetente` (`remetente_id`,`data_envio`),
-  ADD KEY `idx_destinatario` (`destinatario_id`,`data_envio`);
+  ADD KEY `id_remetente` (`id_remetente`),
+  ADD KEY `id_destinatario` (`id_destinatario`);
 
 --
 -- Índices de tabela `usuarios`
@@ -100,7 +97,7 @@ ALTER TABLE `mensagens`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- Restrições para tabelas despejadas
@@ -110,8 +107,8 @@ ALTER TABLE `usuarios`
 -- Restrições para tabelas `mensagens`
 --
 ALTER TABLE `mensagens`
-  ADD CONSTRAINT `mensagens_ibfk_1` FOREIGN KEY (`remetente_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `mensagens_ibfk_2` FOREIGN KEY (`destinatario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `mensagens_ibfk_1` FOREIGN KEY (`id_remetente`) REFERENCES `usuarios` (`id`),
+  ADD CONSTRAINT `mensagens_ibfk_2` FOREIGN KEY (`id_destinatario`) REFERENCES `usuarios` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

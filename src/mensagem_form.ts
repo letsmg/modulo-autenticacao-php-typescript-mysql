@@ -1,7 +1,5 @@
-// src/mensagem-form.ts
-
 interface MensagemFormData {
-  destinatario_id: string;
+  id_destinatario: number;
   mensagem: string;
 }
 
@@ -14,42 +12,58 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('form-mensagem') as HTMLFormElement | null;
   const resultado = document.getElementById('resultado') as HTMLElement | null;
 
-  if (!form || !resultado) {
-    console.error('Elementos do formulário não encontrados.');
-    return;
-  }
+  if (!form || !resultado) return;
 
   form.addEventListener('submit', async (e: Event) => {
     e.preventDefault();
 
-    const formData = new FormData(form);
-    const data: MensagemFormData = Object.fromEntries(formData.entries()) as unknown as MensagemFormData;
+    const btnSubmit = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const selectDest = document.getElementById('id_destinatario') as HTMLSelectElement;
+    const campoMsg = document.getElementById('mensagem') as HTMLTextAreaElement;
+
+    // 1. Limpa o alerta anterior imediatamente e desabilita o botão
+    resultado.classList.remove('show'); // Esconde a msg anterior com fade do Bootstrap
+    resultado.innerHTML = ''; 
+    btnSubmit.disabled = true;
+    btnSubmit.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+
+    const dados: MensagemFormData = {
+      id_destinatario: parseInt(selectDest.value),
+      mensagem: campoMsg.value.trim()
+    };
 
     try {
       const response = await fetch('../logica/salvar-mensagem.php', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams(data as any).toString(),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dados)
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      const responseText = await response.text();
+      const json: RespostaAPI = JSON.parse(responseText);
 
-      const json: RespostaAPI = await response.json();
+      // 2. Criando o alerta com as classes de animação do Bootstrap (fade e show)
+      const tipoAlerta = json.success ? 'alert-success' : 'alert-danger';
+      
+      resultado.innerHTML = `
+        <div class="alert ${tipoAlerta} alert-dismissible fade show" role="alert">
+          ${json.message}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      `;
 
-      if (json.success) {
-        resultado.innerHTML = `<div class="alert alert-success">${json.message}</div>`;
-        form.reset();
-      } else {
-        resultado.innerHTML = `<div class="alert alert-danger">${json.message}</div>`;
-      }
-    } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : 'Erro desconhecido';
-      resultado.innerHTML = `<div class="alert alert-danger">Erro ao enviar: ${errorMessage}</div>`;
-      console.error('Erro na requisição:', error);
+      if (json.success) form.reset();
+
+    } catch (error) {
+      resultado.innerHTML = `
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          Erro ao processar a requisição.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      `;
+    } finally {
+      btnSubmit.disabled = false;
+      btnSubmit.innerHTML = 'Enviar';
     }
   });
 });

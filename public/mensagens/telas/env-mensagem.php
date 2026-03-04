@@ -19,8 +19,8 @@ require_once '../../cabecalhos/cabecalho_logado.php';
 
               <form id="form-mensagem" autocomplete="off" class="vstack gap-3">
                 <div>
-                  <label for="destinatario_id" class="form-label">Destinatário</label>
-                  <select id="destinatario_id" name="destinatario_id" class="form-select" required>
+                  <label for="id_destinatario" class="form-label">Destinatário</label>
+                  <select id="id_destinatario" name="id_destinatario" class="form-select" required>
                     <option value="">Selecione um usuário</option>
                     <?php
                     // Puxa usuários ativos exceto o logado (usa $_SESSION['usuario_id'])
@@ -57,7 +57,7 @@ require_once '../../cabecalhos/cabecalho_logado.php';
                 <div>
                   <div class="d-grid gap-2 d-sm-flex">
                     <button type="submit" class="btn btn-success flex-fill">Enviar</button>
-                    <a href="<?= $base_url ?>/home.php" class="btn btn-secondary">Voltar</a>
+                    <a href="<?= BASE_URL ?>/home.php" class="btn btn-secondary">Voltar</a>
                   </div>
                 </div>
               </form>
@@ -69,7 +69,7 @@ require_once '../../cabecalhos/cabecalho_logado.php';
       </div>
     </div>
 
-    <script type="module" src="js/mensagem_form.min.js"></script>
-    <script type="module" src="<?= $base_url; ?>/js/funcoes_bacanas.min.js"></script>
+    <script type="module" src="<?= BASE_URL ?>/js/mensagem_form.min.js"></script>
+    <script type="module" src="<?= BASE_URL ?>/js/funcoes_bacanas.min.js"></script>
   </body>
   </html>

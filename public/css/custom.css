@@ -31,3 +31,19 @@ body{
 }
 .link-primary-custom{ color: var(--brand-start); }
 .small-muted{ color: var(--muted); }
+
+/* Animação para o alerta surgir suavemente e chamar atenção */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.alerta-animado {
+  animation: slideIn 0.4s ease-out;
+}
+
+/* Efeito de pulse para o botão enquanto envia */
+.enviando {
+  cursor: not-allowed;
+  opacity: 0.7;
+}

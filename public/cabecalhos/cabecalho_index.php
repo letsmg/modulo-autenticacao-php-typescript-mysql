@@ -38,7 +38,9 @@ if (!isset($base_url)) {
     <meta property="og:title" content="Desenvolvimento Web Full Stack" />
     <meta property="og:description" content="Portal de gerenciamento para criação de sites e sistemas web." />
     <meta property="og:type" content="website" />
-
+    
+    <link rel="icon" type="image/jpeg" href="<?= BASE_URL ?>/storage/imgs/icon.jpg">
+    
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="css/custom.css" />
     <link

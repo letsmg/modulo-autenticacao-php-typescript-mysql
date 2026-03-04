@@ -11,6 +11,20 @@ Este projeto é um **módulo de autenticação simples e seguro** desenvolvido p
 **Objetivo principal**:  
 Mostrar como criar um sistema de autenticação básico, mas seguro, utilizando PHP moderno, MySQL para persistência, TypeScript para o frontend e Vite como bundler. Inclui hashing de senhas, proteção contra SQL Injection (via PDO prepared statements), sessões seguras e níveis de acesso (ex: admin, usuário).
 
+
+
+
+**********************
+BOA PARTE DO PROJETO ESTÁ COM LÓGICA PROCEDURAL POR SER APENAS UMA DEMO
+QUE NAO VAI PARA PRODUÇÃO POR SE TRATAR DE UM MICRO SISTEMA
+USUÁRIOS -> PROCEDURAL -> TELAS/LOGICA
+MENSAGENS -> ORIENTADO AO OBJETO -> CLASSES/TELAS/LOGICA (modelo MVC)
+**********************
+
+
+
+
+
 Repositório: https://github.com/letsmg/modulo-autenticacao-php-typescript-mysql
 
 ## Funcionalidades Concluídas

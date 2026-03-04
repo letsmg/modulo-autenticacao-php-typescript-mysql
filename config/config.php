@@ -1,6 +1,7 @@
 <?php
 // --- PARA O NAVEGADOR (Links, CSS, JS, Fetch) ---
 define('BASE_URL', 'http://localhost/ts/public/');
+define('STORAGE', 'http://localhost/ts/storage/');
 
 // --- PARA O PHP (require_once, include) ---
 // O __DIR__ pega a pasta onde este arquivo config.php está

@@ -51,8 +51,11 @@ if (!isset($base_url)) {
     <meta charset="UTF-8" />
     <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="<?= $base_url ?>/css/bootstrap.css" />
-    <link rel="stylesheet" href="<?= $base_url ?>/css/custom.css" />
+
+    <link rel="icon" type="image/jpeg" href="<?= STORAGE ?>imgs/ico.jpg">
+
+    <link rel="stylesheet" href="<?= BASE_URL ?>/css/bootstrap.css" />
+    <link rel="stylesheet" href="<?= BASE_URL ?>/css/custom.css" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
@@ -60,3 +63,4 @@ if (!isset($base_url)) {
   </head>
   <body class="bg-body-tertiary">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
