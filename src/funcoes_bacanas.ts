@@ -112,3 +112,30 @@ document.addEventListener("click", (event) => {
     auto_limpar_todos();
   }
 });
+
+export function setupPasswordToggles(): void {
+  const toggleButtons = document.querySelectorAll<HTMLElement>(".toggle-password");
+
+  toggleButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const container = btn.closest(".input-group") || btn.parentElement;
+      const input = container?.querySelector('input[type="password"], input[type="text"]');
+
+      if (input instanceof HTMLInputElement) {
+        const isPassword = input.type === "password";
+        input.type = isPassword ? "text" : "password";
+
+        const icon = btn.querySelector("i") || btn; 
+        if (icon.classList.contains("bi") || icon.classList.contains("fa")) {
+          icon.classList.toggle("bi-eye", !isPassword);
+          icon.classList.toggle("bi-eye-slash", isPassword);
+        }
+      }
+    });
+  }); 
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    setupPasswordToggles(); // Ativa a visibilidade de senha em todas as telas
+    console.log("Funções bacanas inicializadas.");
+});

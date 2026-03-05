@@ -1,0 +1,15 @@
+# This is an example configuration file
+# To learn more, see the full config.yaml reference: https://docs.continue.dev/reference
+
+name: Example Config
+version: 1.0.0
+schema: v1
+
+
+models:
+  - name: "Gemma 3 12B (Local)"
+    provider: ollama
+    model: "gemma3:12b"
+  - name: "qwen 3 4B (Local)"
+    provider: ollama
+    model: "qwen3:4b"

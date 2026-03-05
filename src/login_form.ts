@@ -19,32 +19,7 @@ type LoginResponse =
       mensagem: string;
     };
 
-function setupPasswordToggles(): void {
-  const buttons = document.querySelectorAll<HTMLButtonElement>(
-    ".toggle-password"
-  );
 
-  buttons.forEach((btn) => {
-    const targetId = btn.getAttribute("data-target");
-    if (!targetId) return;
-
-    const input = document.getElementById(targetId) as
-      | HTMLInputElement
-      | null;
-    if (!input) return;
-
-    btn.addEventListener("click", () => {
-      const isPassword = input.type === "password";
-      input.type = isPassword ? "text" : "password";
-
-      const icon = btn.querySelector("i");
-      if (icon) {
-        icon.classList.toggle("bi-eye", !isPassword);
-        icon.classList.toggle("bi-eye-slash", isPassword);
-      }
-    });
-  });
-}
 
 async function login(payload: LoginPayload): Promise<LoginResponse> {
   const resposta = await fetch("usuarios/logica/login_usuario.php", {
@@ -100,8 +75,7 @@ function setupLoginForm(formId: string, outputId: string): void {
   });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  setupPasswordToggles();
+document.addEventListener("DOMContentLoaded", () => {  
   setupLoginForm("form-login", "resultado-login");
 });
 

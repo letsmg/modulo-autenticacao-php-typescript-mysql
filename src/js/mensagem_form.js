@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("form-mensagem");
+  const form = document.getElementById("form_mensagem");
   const resultado = document.getElementById("resultado");
   if (!form || !resultado) {
     console.error("Elementos do formulário não encontrados.");
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
     try {
-      const response = await fetch("../logica/salvar-mensagem.php", {
+      const response = await fetch("../logica/salvar_mensagem.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"

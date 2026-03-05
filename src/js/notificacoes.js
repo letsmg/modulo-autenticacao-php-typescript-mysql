@@ -20,7 +20,7 @@ function showToast(message) {
 }
 async function checkMensagens() {
   try {
-    const response = await fetch("usuarios/logica/check-mensagens.php");
+    const response = await fetch("usuarios/logica/check_mensagens.php");
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }

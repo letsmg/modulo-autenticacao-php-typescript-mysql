@@ -24,7 +24,7 @@ http_response_code(403);
         <h3>Acesso proibido</h3>
         <p class="text-muted">Você não tem permissão para ver esse diretório.</p>
         <p>Redirecionando para a página de login em <span id="count">3</span> segundos...</p>
-        <a class="btn btn-primary mt-2" href="/ts/index.php">Ir para login agora</a>
+        <a class="btn btn-primary mt-2" href="/ts/public/index.php">Ir para login agora</a>
       </div>
     </div>
 

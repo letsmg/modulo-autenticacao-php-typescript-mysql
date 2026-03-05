@@ -23,7 +23,7 @@ http_response_code(403);
         <img src="/ts/storage/imgs/caozinho.png" alt="Erro" />
         <h3>Erro</h3>
         <p class="text-muted">Você será redirecionado em <span id="count">3</span> segundos.</p>
-        <a class="btn btn-primary mt-2" href="/ts/index.php">Ir para login agora</a>
+        <a class="btn btn-primary mt-2" href="/ts/public/index.php">Ir para login agora</a>
       </div>
     </div>
 

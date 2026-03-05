@@ -9,7 +9,7 @@ interface RespostaAPI {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('form-mensagem') as HTMLFormElement | null;
+  const form = document.getElementById('form_mensagem') as HTMLFormElement | null;
   const resultado = document.getElementById('resultado') as HTMLElement | null;
 
   if (!form || !resultado) return;
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     try {
-      const response = await fetch('../logica/salvar-mensagem.php', {
+      const response = await fetch('../logica/salvar_mensagem.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dados)

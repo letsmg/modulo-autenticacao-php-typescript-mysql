@@ -3,7 +3,7 @@ $titulo_pagina = 'Caixa de Entrada';
 require_once '../../cabecalhos/cabecalho_logado.php';
 
 // Importa a classe Mensagem
-require_once PATH_RAIZ . '/public/mensagens/classes/Mensagem.php';
+require_once DIR_PUB . '/mensagens/classes/Mensagem.php';
 
 // Instancia o objeto passando a conexão $pdo
 $msgService = new Mensagem($pdo);
@@ -21,7 +21,7 @@ $mensagens = $msgService->listarRecebidas($id_logado);
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="h5 mb-0"><i class="bi bi-inbox-fill text-primary"></i> Mensagens Recebidas</h2>
                 <div>
-                    <a href="env-mensagem.php" class="btn btn-primary btn-sm">
+                    <a href="env_mensagem.php" class="btn btn-primary btn-sm">
                         <i class="bi bi-plus-lg"></i> Nova Mensagem
                     </a>
                     <a href="<?= BASE_URL ?>home.php" class="btn btn-outline-secondary btn-sm">Voltar</a>

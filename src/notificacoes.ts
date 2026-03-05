@@ -31,7 +31,7 @@ function showToast(message: string): void {
 
 async function checkMensagens(): Promise<void> {
   try {
-    const response = await fetch('logica/check-mensagens.php');
+    const response = await fetch('logica/check_mensagens.php');
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }

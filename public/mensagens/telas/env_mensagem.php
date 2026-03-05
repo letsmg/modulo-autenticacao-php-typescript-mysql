@@ -17,7 +17,7 @@ require_once '../../cabecalhos/cabecalho_logado.php';
                 Selecione o destinatário e envie sua mensagem.
               </p>
 
-              <form id="form-mensagem" autocomplete="off" class="vstack gap-3">
+              <form id="form_mensagem" autocomplete="off" class="vstack gap-3">
                 <div>
                   <label for="id_destinatario" class="form-label">Destinatário</label>
                   <select id="id_destinatario" name="id_destinatario" class="form-select" required>
@@ -57,7 +57,7 @@ require_once '../../cabecalhos/cabecalho_logado.php';
                 <div>
                   <div class="d-grid gap-2 d-sm-flex">
                     <button type="submit" class="btn btn-success flex-fill">Enviar</button>
-                    <a href="<?= BASE_URL ?>/home.php" class="btn btn-secondary">Voltar</a>
+                    <a href="<?= BASE_URL ?>mensagens/telas/list_mensagens.php" class="btn btn-secondary">Voltar</a>
                   </div>
                 </div>
               </form>

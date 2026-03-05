@@ -31,8 +31,8 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Mensagens</a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<?= $base_url ?>/mensagens/telas/env-mensagem.php">Nova</a></li>
-            <li><a class="dropdown-item" href="<?= $base_url ?>/mensagens/telas/list-mensagens.php">Listar</a></li>
+            <li><a class="dropdown-item" href="<?= $base_url ?>/mensagens/telas/env_mensagem.php">Nova</a></li>
+            <li><a class="dropdown-item" href="<?= $base_url ?>/mensagens/telas/list_mensagens.php">Listar</a></li>
           </ul>
         </li>
       </ul>
