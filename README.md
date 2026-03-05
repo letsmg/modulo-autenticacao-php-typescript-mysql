@@ -34,7 +34,7 @@ TCHAAAAAU BRIGADO!!!
 
 
 
-Repositório: https://github.com/letsmg/modulo-autenticacao-php-typescript-mysql
+Repositório: https://github.com/letsmg/auth-messaging-system
 
 ## Funcionalidades Concluídas
 
