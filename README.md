@@ -14,7 +14,7 @@ Mostrar como criar um sistema de autenticação básico, mas seguro, utilizando 
 Foi usado bcrypt para proteger as senhas dos usuários mas porém como não tem muita
 diferença de trabalho para implementação, caso vá usar num projeto para produção
 recomando fortemente usar Argon2id
-   *Combina vantagens do Argon2i e Argon2d
+   *Combina vantagens do Argon2i e Argon2id
    *Melhor proteção contra vários tipos de ataque
 
 
@@ -45,12 +45,15 @@ Repositório: https://github.com/letsmg/auth-messaging-system
 - Verificação de níveis de acesso (somente admins podem alterar nivel de acesso de outros)
 - Estrutura de banco de dados básica (tabela `usuarios` com campos id, nome, email, senha_hash, nivel_acesso, ativo, etc.)
 - Interface simples e responsiva (HTML + CSS + JavaScript/TypeScript)
+- Exclusão de usuários (com confirmação e restrição por nível de acesso)
+- Envio de mensagens para outros usuários do sistema
+- Notificação de mensagens recebidas
 
 ## Funcionalidades Pendentes (a implementar)
 
-- Exclusão de usuários (com confirmação e restrição por nível de acesso)
 - Recuperação de senha (reset via email/token)
 - Proteções adicionais (CSRF tokens, rate limiting em login, 2FA opcional)
+- Alteração de bcrypt para Argonid2id
 
 ## Tecnologias Utilizadas
 
