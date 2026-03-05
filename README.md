@@ -6,12 +6,16 @@
 
 ## Descrição
 
-Este projeto é um **módulo de autenticação simples e seguro** desenvolvido para demonstrar boas práticas de implementação de login, cadastro e controle de níveis de acesso em aplicações web.
+Este projeto é um **sistema simples de autenticação e envio/notificação de mensagens** desenvolvido para demonstrar boas práticas de implementação de login, cadastro e controle de níveis de acesso em aplicações web.
 
 **Objetivo principal**:  
 Mostrar como criar um sistema de autenticação básico, mas seguro, utilizando PHP moderno, MySQL para persistência, TypeScript para o frontend e Vite como bundler. Inclui hashing de senhas, proteção contra SQL Injection (via PDO prepared statements), sessões seguras e níveis de acesso (ex: admin, usuário).
 
-
+Foi usado bcrypt para proteger as senhas dos usuários mas porém como não tem muita
+diferença de trabalho para implementação, caso vá usar num projeto para produção
+recomando fortemente usar Argon2id
+   *Combina vantagens do Argon2i e Argon2d
+   *Melhor proteção contra vários tipos de ataque
 
 
 **********************
