@@ -36,18 +36,6 @@ CREATE TABLE `mensagens` (
   `lida` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Despejando dados para a tabela `mensagens`
---
-
-INSERT INTO `mensagens` (`id`, `id_remetente`, `id_destinatario`, `texto`, `data_envio`, `lida`) VALUES
-(17, 1, 59, 'asd', '2026-03-05 11:10:07', 0),
-(18, 1, 53, 'asdf', '2026-03-05 11:10:09', 0),
-(19, 1, 58, 'asdf', '2026-03-05 11:10:11', 0);
-
---
--- Índices para tabelas despejadas
---
 
 --
 -- Índices de tabela `mensagens`

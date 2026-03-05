@@ -152,5 +152,7 @@ document.querySelectorAll('.btn-excluir').forEach(button => {
     });
 });
 </script>
+<script type="module" src="<?= BASE_URL ?>/js/funcoes_bacanas.min.js"></script>
+<script type="module" src="<?= BASE_URL ?>/js/notificacoes.min.js"></script>
 </body>
 </html>

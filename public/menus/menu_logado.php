@@ -3,7 +3,8 @@
  * Menu único para todas as telas autenticadas (home, cadastro, editar, listar, etc.)
  * Requer sessão ativa ($_SESSION['usuario_id'])
  */
-
+// var_dump($_SESSION);
+// exit();
 
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark navbar-primary">
@@ -38,7 +39,14 @@
       </ul>
       <div class="d-flex align-items-center">
         <span class="me-3">Olá, <?= $nome ?></span>
-        <a class="btn btn-outline-light btn-sm" href="<?= $base_url ?>/usuarios/logica/logout.php">Sair</a>
+        <a class="btn btn-outline-light btn-sm position-relative" href="<?= $base_url ?>/usuarios/logica/logout.php">
+          Sair
+          <span id="notificacao-badge" 
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" 
+                style="display: none;">
+            0
+          </span>
+        </a>
       </div>
     </div>
   </div>

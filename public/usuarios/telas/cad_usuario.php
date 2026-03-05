@@ -140,7 +140,8 @@ require_once '../../cabecalhos/cabecalho_logado.php';
     
     <script type="module" src="<?= $base_url; ?>/js/user_form.min.js"></script>
     <script type="module" src="<?= $base_url; ?>/js/funcoes_bacanas.min.js"></script>
-    
+    <script type="module" src="<?= BASE_URL ?>/js/funcoes_bacanas.min.js"></script>
+    <script type="module" src="<?= BASE_URL ?>/js/notificacoes.min.js"></script>
     
   </body>
   </html>

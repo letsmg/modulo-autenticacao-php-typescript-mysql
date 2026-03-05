@@ -1,54 +1,40 @@
-// src/notificacoes.ts
+let totalAntigo = 0;
 
-interface RespostaCheckMensagens {
-  count: number;
-}
+async function atualizarNotificacoes() {
+    try {
+        const response = await fetch('/ts/public/mensagens/logica/verificar_novas.php');
+        const data = await response.json();
+        
+        const badge = document.getElementById('notificacao-badge');
+        const totalAtual = parseInt(data.total);
 
-const audio = new Audio('sounds/notificacao.mp3'); // Ajuste o caminho se necessário
+        // 1. Atualiza o Badge do Menu
+        if (badge) {
+            badge.innerText = totalAtual > 0 ? totalAtual : "";
+            badge.style.display = totalAtual > 0 ? 'inline-block' : 'none';
+        }
 
-function showToast(message: string): void {
-  const toastEl = document.createElement('div');
-  toastEl.className = 'toast align-items-center text-bg-primary border-0 position-fixed top-0 end-0 m-3';
-  toastEl.setAttribute('role', 'alert');
-  toastEl.setAttribute('aria-live', 'assertive');
-  toastEl.setAttribute('aria-atomic', 'true');
-  toastEl.innerHTML = `
-    <div class="d-flex">
-      <div class="toast-body">${message}</div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Fechar"></button>
-    </div>
-  `;
+        // 2. Verifica se houve mudança e se estamos na página de listagem
+        const containerTabela = document.querySelector('#tabela-mensagens tbody');
+        
+        if (totalAtual !== totalAntigo) {
+            // Se houver novas mensagens e a tabela existir, atualiza o HTML
+            if (containerTabela) {
+                const resTabela = await fetch('/ts/public/mensagens/logica/render_tabela.php');
+                const htmlTabela = await resTabela.text();
+                containerTabela.innerHTML = htmlTabela;
+            }
 
-  document.body.appendChild(toastEl);
-  const toast = new bootstrap.Toast(toastEl);
-  toast.show();
+            // Toca som se o número aumentou
+            if (totalAtual > totalAntigo) {
+                new Audio('/ts/storage/sons/alerta.mp3').play().catch(() => {});
+            }
+        }
 
-  // Remove após esconder (opcional, para não acumular DOM)
-  toastEl.addEventListener('hidden.bs.toast', () => {
-    toastEl.remove();
-  });
-}
-
-async function checkMensagens(): Promise<void> {
-  try {
-    const response = await fetch('logica/check_mensagens.php');
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+        totalAntigo = totalAtual;
+    } catch (e) {
+        console.error("Erro na atualização automática");
     }
-
-    const data: RespostaCheckMensagens = await response.json();
-
-    if (data.count > 0) {
-      showToast(`Você tem ${data.count} nova(s) mensagem(ns)!`);
-      audio.play().catch(err => console.warn('Erro ao tocar som:', err));
-    }
-  } catch (error: unknown) {
-    console.error('Erro ao checar mensagens:', error);
-  }
 }
 
-// Inicia o polling a cada 10 segundos
-setInterval(checkMensagens, 10000);
-
-// Primeira verificação imediata ao carregar a página
-checkMensagens();
+setInterval(atualizarNotificacoes, 10000);
